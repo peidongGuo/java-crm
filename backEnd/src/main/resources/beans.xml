@@ -29,8 +29,12 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <property name="mapperInterface" value="com.gpd.appservice.UserMapper"></property>
+    <bean id="customerMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.gpd.appservice.CustomerMapper"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="dictMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.gpd.appservice.DictMapper"></property>
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
 </beans>

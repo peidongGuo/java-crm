@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gpd.appservice.DictMapper">
+    <resultMap id="dictType" type="com.gpd.appservice.DictType">
+        <result property="code" column="dict_type_code"/>
+        <result property="name" column="dict_type_name"/>
+    </resultMap>
+    <resultMap id="dictItem" type="com.gpd.appservice.DictItem">
+        <result property="id" column="dict_id"/>
+        <result property="type" column="dict_type_code"/>
+        <result property="name" column="dict_item_name"/>
+    </resultMap>
+    <select id="listAllDictTypes" resultMap="dictType">
+       SELECT distinct dict_type_code,dict_type_name
+        FROM `base_dict` order by dict_type_code
+    </select>
+    <select id="listAllDictItemsByType" parameterType="string" resultMap="dictItem">
+       SELECT dict_id,dict_type_code,dict_type_name,dict_item_name
+        FROM `base_dict`
+        where dict_type_code=#{dictType}
+    </select>
+
+</mapper>

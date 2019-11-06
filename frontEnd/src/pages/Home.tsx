@@ -14,6 +14,7 @@ import { History } from 'history';
 import Namespaces from './Namespaces';
 import Functions from './Functions';
 import Instances from './Instances';
+import Test from './Test';
 
 type NavItem = {
   label: string;
@@ -28,70 +29,77 @@ const navigations: Array<NavItem> = [
     label: '导航',
     children: [
       {
-        path: 'tenants',
-        label: 'Tenants',
+        path: 'customers',
+        label: '客户列表',
         icon: 'glyphicon glyphicon-signal',
         component: Dashboard
       },
       {
-        path: 'namespaces',
-        label: 'Namespaces',
+        path: 'test',
+        label: '测试页面',
         icon: 'glyphicon glyphicon-signal',
-        component: Namespaces
-      },
-      {
-        path: 'functions',
-        label: 'Functions',
-        icon: 'glyphicon glyphicon-signal',
-        component: Functions
-      },
-      {
-        path: 'instances',
-        label: 'Instances',
-        icon: 'glyphicon glyphicon-signal',
-        component: Instances
-      },
-      {
-        label: '表单页面',
-        icon: 'glyphicon glyphicon-edit',
-        children: [
-          {
-            label: '常规表单',
-            path: 'form/basic',
-            component: BasicForm,
-            children: [
-              {
-                label: '三级目录测试',
-                path: 'form/basic/advanced',
-                component: AdvancedForm
-              }
-            ]
-          },
-
-          {
-            label: '复杂表单',
-            path: 'form/advanced',
-            component: AdvancedForm
-          },
-
-          {
-            label: '向导',
-            path: 'form/wizard',
-            component: WizardForm
-          }
-        ]
-      },
-
-      {
-        label: '会员管理',
-        children: [
-          {
-            label: '列表',
-            path: 'customer/index',
-            component: CustomIndex
-          }
-        ]
+        component: Test
       }
+      // ,
+      // {
+      //   path: 'namespaces',
+      //   label: 'Namespaces',
+      //   icon: 'glyphicon glyphicon-signal',
+      //   component: Namespaces
+      // },
+      // {
+      //   path: 'functions',
+      //   label: 'Functions',
+      //   icon: 'glyphicon glyphicon-signal',
+      //   component: Functions
+      // },
+      // {
+      //   path: 'instances',
+      //   label: 'Instances',
+      //   icon: 'glyphicon glyphicon-signal',
+      //   component: Instances
+      // },
+      // {
+      //   label: '表单页面',
+      //   icon: 'glyphicon glyphicon-edit',
+      //   children: [
+      //     {
+      //       label: '常规表单',
+      //       path: 'form/basic',
+      //       component: BasicForm,
+      //       children: [
+      //         {
+      //           label: '三级目录测试',
+      //           path: 'form/basic/advanced',
+      //           component: AdvancedForm
+      //         }
+      //       ]
+      //     },
+
+      //     {
+      //       label: '复杂表单',
+      //       path: 'form/advanced',
+      //       component: AdvancedForm
+      //     },
+
+      //     {
+      //       label: '向导',
+      //       path: 'form/wizard',
+      //       component: WizardForm
+      //     }
+      //   ]
+      // },
+
+      // {
+      //   label: '会员管理',
+      //   children: [
+      //     {
+      //       label: '列表',
+      //       path: 'customer/index',
+      //       component: CustomIndex
+      //     }
+      //   ]
+      // }
     ]
   }
 ];
@@ -159,7 +167,7 @@ const Home = function(props: Props) {
           </button>
           <div className={`a-Layout-brand`}>
             <i className="fa fa-paw"></i>
-            <span className="hidden-folded m-l-sm">AMis Boilerplate</span>
+            <span className="hidden-folded m-l-sm">客户管理系统</span>
           </div>
         </div>
         <div className={`a-Layout-headerBar`}>

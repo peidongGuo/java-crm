@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component, useState, useEffect, useReducer, useContext } from 'react';
 import * as BrowserHistory from 'history';
 import { BrowserRouter as Router, Route, Link, Redirect, Switch } from 'react-router-dom';
-import './App.css';
+// import './App.css';
 import Home from './pages/Home';
 import GlobalStateContainer from './context/GlobalStateContainer';
 import Login from './pages/Login';

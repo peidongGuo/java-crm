@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gpd.appservice.CustomerMapper">
+    <resultMap id="customerEntityMap" type="com.gpd.appservice.Customer">
+        <id property="id" column="cust_id"/>
+        <result property="name" column="cust_name"/>
+        <result property="sourceId" column="cust_source"/>
+        <result property="sourceName" column="cust_source_name"/>
+        <result property="industryId" column="cust_industry"/>
+        <result property="industryName" column="cust_industry_name"/>
+        <result property="level" column="cust_level"/>
+        <result property="levelName" column="cust_level_name"/>
+        <result property="phone" column="cust_phone"/>
+        <result property="mobile" column="cust_mobile"/>
+    </resultMap>
+    <sql id="customerQueryVo">
+        <where>
+        <if test="custName!=null">
+            AND a.cust_name like '%${custName}%'
+        </if>
+        <if test="custSource!=null">
+            AND a.cust_source=#{custSource}
+        </if>
+        <if test="custIndustry!=null">
+            AND a.cust_industry=#{custIndustry}
+        </if>
+        <if test="custLevel!=null">
+            AND a.cust_level=#{custLevel}
+        </if>
+        </where>
+    </sql>
+    <select id="queryCustomerById" parameterType="int" resultMap="customerEntityMap">
+        SELECT a.cust_id,a.cust_name,
+        a.cust_source,b.dict_item_name cust_source_name,
+        a.cust_industry,c.dict_item_name cust_industry_name,
+        a.cust_level,d.dict_item_name cust_level_name,
+        a.cust_phone,a.cust_mobile
+        FROM `customer` a
+        left join `base_dict` b on a.cust_source=b.dict_id
+        left join `base_dict` c on a.cust_industry=c.dict_id
+        left join `base_dict` d on a.cust_level=d.dict_id
+        where cust_id = #{id}
+    </select>
+
+    <select id="queryCustomersByQueryVo" parameterType="com.gpd.appservice.QueryVo" resultMap="customerEntityMap" >
+        SELECT a.cust_id,a.cust_name,
+        a.cust_source,b.dict_item_name cust_source_name,
+        a.cust_industry,c.dict_item_name cust_industry_name,
+        a.cust_level,d.dict_item_name cust_level_name,
+        a.cust_phone,a.cust_mobile
+        FROM `customer` a
+        left join `base_dict` b on a.cust_source=b.dict_id
+        left join `base_dict` c on a.cust_industry=c.dict_id
+        left join `base_dict` d on a.cust_level=d.dict_id
+        <include refid="customerQueryVo"></include>
+        <if test="start!=null">
+            limit #{start},#{rows}
+        </if>
+    </select>
+
+    <select id="queryCustomersByQueryVoCount" resultType="int">
+        select count(1) from `customer` a
+        <include refid="customerQueryVo"></include>
+    </select>
+
+    <insert id="saveCustomer" parameterType="com.gpd.appservice.Customer" useGeneratedKeys="true" keyProperty="id">
+<!--        <selectKey keyColumn="cust_id" keyProperty="id" order="AFTER" resultType="int" >-->
+<!--            SELECT LAST_INSERT_ID()-->
+<!--        </selectKey>-->
+        INSERT into `customer` (cust_name,cust_source,cust_industry,cust_level,cust_phone,cust_mobile) values (#{name},#{sourceId},#{industryId},#{level},#{phone},#{mobile})
+    </insert>
+
+    <update id="updateCustomer" parameterType="com.gpd.appservice.Customer">
+        update `customer` set cust_name=#{name},cust_source=#{sourceId},cust_industry=#{industryId},cust_level=#{level},cust_phone=#{phone},cust_mobile=#{mobile} where cust_id=#{id}
+    </update>
+
+    <delete id="deleteCustomer" parameterType="int">
+        DELETE from `customer` where cust_id=#{id}
+    </delete>
+</mapper>
